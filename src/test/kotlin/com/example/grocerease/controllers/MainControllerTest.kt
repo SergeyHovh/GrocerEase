@@ -9,17 +9,27 @@ import org.springframework.test.web.servlet.get
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class MainControllerTest {
+class MainControllerTest(
+    private val basePath: String = "/api/v1/main"
+) {
 
     @Autowired
     lateinit var mockMvc: MockMvc
 
     @Test
     fun hello() {
-        mockMvc.get("/api/v1/main/hello")
+        mockMvc.get("${basePath}/hello")
             .andDo { print() }
             .andExpect {
                 status { is2xxSuccessful() }
+            }
+    }
+
+    @Test
+    fun failing() {
+        mockMvc.get("$basePath/hello")
+            .andExpect {
+                status { is3xxRedirection() }
             }
     }
 }
