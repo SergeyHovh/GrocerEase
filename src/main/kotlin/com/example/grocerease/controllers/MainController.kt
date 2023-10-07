@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RestController
 class MainController {
 
     @GetMapping("hello")
-    fun hello() = ResponseEntity.status(200).body("Hello World")
+    fun hello() = ResponseEntity.status(200).body("Hello World!!!")
 
 }
