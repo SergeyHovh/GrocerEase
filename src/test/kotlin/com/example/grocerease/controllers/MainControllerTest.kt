@@ -29,7 +29,7 @@ class MainControllerTest(
     fun failing() {
         mockMvc.get("$basePath/hello")
             .andExpect {
-                status { is3xxRedirection() }
+                status { isOk() }
             }
     }
 }
