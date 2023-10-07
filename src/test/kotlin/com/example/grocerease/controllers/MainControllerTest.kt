@@ -29,7 +29,7 @@ class MainControllerTest {
         mockMvc.get("$basePath/hello")
             .andExpect {
                 status { isOk() }
-                jsonPath("$") { value("hello") }
+                jsonPath("$") { value("Hello World") }
             }
     }
 }
