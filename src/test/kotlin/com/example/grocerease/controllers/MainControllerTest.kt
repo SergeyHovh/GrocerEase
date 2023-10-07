@@ -9,9 +9,8 @@ import org.springframework.test.web.servlet.get
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class MainControllerTest(
+class MainControllerTest {
     private val basePath: String = "/api/v1/main"
-) {
 
     @Autowired
     lateinit var mockMvc: MockMvc
