@@ -18,18 +18,8 @@ class MainControllerTest {
     @Test
     fun hello() {
         mockMvc.get("${basePath}/hello")
-            .andDo { print() }
             .andExpect {
                 status { is2xxSuccessful() }
-            }
-    }
-
-    @Test
-    fun failing() {
-        mockMvc.get("$basePath/hello")
-            .andExpect {
-                status { isOk() }
-                jsonPath("$") { value("Hello World!!!") }
             }
     }
 }

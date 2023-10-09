@@ -5,7 +5,6 @@ import com.example.grocerease.service.RegistrationService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.time.LocalDate
 
 @RestController
 @RequestMapping("/api/v1/registration")
@@ -14,10 +13,11 @@ class RegistrationController(
 ) {
 
     @PostMapping("create")
-    fun createClient(): ResponseEntity<String> {
-        val id = (100_000L..999_999L).random()
-        registrationService.saveClient(Client(id, "tmp", LocalDate.now()))
-        return ResponseEntity.status(HttpStatus.CREATED).body("id: $id")
+    fun createClient(@RequestBody client: Client): ResponseEntity<String> {
+        val saveClient = registrationService.saveClient(client)
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body("id: ${saveClient.id}")
     }
 
     @GetMapping("{id}")
