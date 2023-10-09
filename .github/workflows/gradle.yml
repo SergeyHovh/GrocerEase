@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   build:
-    name: Build 
+    name: Build with Postgresql
     runs-on: ubuntu-latest
     services:
       postgres:
