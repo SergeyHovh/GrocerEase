@@ -1,5 +1,6 @@
 package com.example.grocerease.controllers
 
+import com.example.grocerease.exceptions.ClientNotFoundException
 import com.example.grocerease.model.Client
 import com.example.grocerease.service.RegistrationService
 import org.springframework.http.HttpStatus
@@ -12,25 +13,26 @@ class RegistrationController(
     private val registrationService: RegistrationService
 ) {
 
+    @ExceptionHandler(ClientNotFoundException::class)
+    fun clientNotFound(exception: ClientNotFoundException): ResponseEntity<String> {
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(exception.localizedMessage)
+    }
+
     @PostMapping("create")
-    fun createClient(@RequestBody client: Client): ResponseEntity<String> {
+    fun createClient(@RequestBody client: Client): ResponseEntity<Client> {
         val saveClient = registrationService.saveClient(client)
         return ResponseEntity
             .status(HttpStatus.CREATED)
-            .body("id: ${saveClient.id}")
+            .body(saveClient)
     }
 
     @GetMapping("{id}")
-    fun findClient(@PathVariable id: Long): ResponseEntity<String> {
-        return try {
-            val clientById = registrationService.getClientById(id)
-            ResponseEntity
-                .status(200)
-                .body(clientById!!.username)
-        } catch (e: Exception) {
-            ResponseEntity
-                .status(404)
-                .body("not found")
-        }
+    fun findClient(@PathVariable id: Long): ResponseEntity<Client> {
+        val clientById = registrationService.getClientById(id)
+        return ResponseEntity
+            .status(200)
+            .body(clientById)
     }
 }
