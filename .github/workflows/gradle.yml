@@ -24,8 +24,7 @@ jobs:
       postgres:
         image: postgres:15
         env:
-          POSTGRES_USER: root
-          POSTGRES_PASSWORD: secret
+          POSTGRES_USER: postgres
           POSTGRES_DB: postgres
         options: >-
           --health-cmd pg_isready

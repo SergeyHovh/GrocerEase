@@ -1,5 +1,7 @@
 package com.example.grocerease.exceptions
 
-class ClientNotFoundException(message: String) : RuntimeException(message) {
+import org.springframework.http.HttpStatus
+
+class ClientNotFoundException(message: String) : ResponseException(HttpStatus.NOT_FOUND, message) {
     constructor(clientId: Long) : this("Client with ID $clientId not found")
 }

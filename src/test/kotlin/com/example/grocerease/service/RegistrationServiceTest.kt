@@ -80,4 +80,43 @@ class RegistrationServiceTest {
         // Verify that clientRepository.findById was called once with the provided ID
         verify(exactly = 1) { clientRepository.findById(nonExistentClientId) }
     }
+
+    @Test
+    fun testClientUpdateHappyCase() {
+        val clientId = 1L
+        val client = Client(clientId, "abc", LocalDate.now())
+
+        every { clientRepository.findById(clientId) } returns Optional.of(client)
+        every { clientRepository.save(client) } returns client
+
+        val updatedClient = registrationService.updateClient(client)
+
+        verify(exactly = 1) {
+            clientRepository.findById(clientId)
+            clientRepository.save(client)
+        }
+
+        assertEquals(client, updatedClient)
+    }
+
+    @Test
+    fun testClientUpdateBadCase() {
+        val clientId = 1L
+        val client = Client(clientId, "abc", LocalDate.now())
+
+        every { clientRepository.findById(clientId) } throws ClientNotFoundException(clientId)
+        every { clientRepository.save(client) } returns client
+
+        assertThrows<ClientNotFoundException> {
+            registrationService.updateClient(client)
+        }
+
+        verify(exactly = 1) {
+            clientRepository.findById(clientId)
+        }
+
+        verify(exactly = 0) {
+            clientRepository.save(client)
+        }
+    }
 }
