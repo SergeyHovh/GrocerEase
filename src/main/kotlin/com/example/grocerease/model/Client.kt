@@ -8,7 +8,7 @@ import java.time.LocalDate
 data class Client(
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
 
     @Column(name = "username")
