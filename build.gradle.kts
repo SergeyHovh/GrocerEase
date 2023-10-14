@@ -32,7 +32,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("com.h2database:h2")
-    implementation("org.postgresql:postgresql")
+    runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
     testImplementation("io.mockk:mockk:1.13.8")}
