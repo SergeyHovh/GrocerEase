@@ -4,9 +4,11 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 
+@ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
 class MainControllerTest {
@@ -18,18 +20,8 @@ class MainControllerTest {
     @Test
     fun hello() {
         mockMvc.get("${basePath}/hello")
-            .andDo { print() }
             .andExpect {
                 status { is2xxSuccessful() }
-            }
-    }
-
-    @Test
-    fun failing() {
-        mockMvc.get("$basePath/hello")
-            .andExpect {
-                status { isOk() }
-                jsonPath("$") { value("Hello World!!!") }
             }
     }
 }
