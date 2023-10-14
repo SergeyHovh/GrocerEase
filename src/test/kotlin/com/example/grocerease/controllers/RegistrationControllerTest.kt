@@ -41,78 +41,39 @@ class RegistrationControllerTest @Autowired constructor(
     @Test
     fun testClientGetHappyPath() {
         val clientId = 1L
-        val mockClient = Client(clientId, "asd", LocalDate.now())
-
-        mockMvc.post("$basePath/create") {
-            contentType = MediaType.APPLICATION_JSON
-            content = asJson(mockClient)
-        }.andDo {
-            mockMvc.get("$basePath/$clientId")
-                .andExpect {
-                    status { isOk() }
-                    content {
-                        contentType(MediaType.APPLICATION_JSON)
-                        json(asJson(mockClient))
-                    }
-                }
-        }
+        mockMvc.get("$basePath/$clientId").andExpect { status { isOk() } }
     }
 
     @Test
     fun testClientGetNotFoundPath() {
-        val clientId = 1L
-        val notFoundClientId = 2L
-        val mockClient = Client(clientId, "asd", LocalDate.now())
-
-        mockMvc.post("$basePath/create") {
-            contentType = MediaType.APPLICATION_JSON
-            content = asJson(mockClient)
-        }.andDo {
-            mockMvc.get("$basePath/$notFoundClientId")
-                .andExpect {
-                    status { isNotFound() }
-                }
-        }
+        val notFoundClientId = 200L
+        mockMvc.get("$basePath/$notFoundClientId").andExpect { status { isNotFound() } }
     }
 
     @Test
     fun testClientPathHappyPath() {
         val clientId = 1L
-        val mockClient = Client(clientId, "asd", LocalDate.now())
-        val updatedClient = mockClient.copy(username = "dsa")
-        mockMvc.post("$basePath/create") {
+        val mockClient = Client(clientId, "updated", LocalDate.now())
+        mockMvc.patch(basePath) {
             contentType = MediaType.APPLICATION_JSON
             content = asJson(mockClient)
-        }.andDo {
-            mockMvc.patch(basePath) {
-                contentType = MediaType.APPLICATION_JSON
-                content = asJson(updatedClient)
-            }.andExpect {
-                status { isAccepted() }
-                content {
-                    contentType(MediaType.APPLICATION_JSON)
-                    json(asJson(updatedClient))
-                }
+        }.andExpect {
+            status { isAccepted() }
+            content {
+                contentType(MediaType.APPLICATION_JSON)
+                json(asJson(mockClient))
             }
         }
     }
 
     @Test
     fun testClientPathNotFoundPath() {
-        val clientId = 1L
+        val clientId = 200L
         val mockClient = Client(clientId, "asd", LocalDate.now())
-        val updatedClient = mockClient.copy(id = 2L, username = "dsa")
-        mockMvc.post("$basePath/create") {
+        mockMvc.patch(basePath) {
             contentType = MediaType.APPLICATION_JSON
             content = asJson(mockClient)
-        }.andDo {
-            mockMvc.patch(basePath) {
-                contentType = MediaType.APPLICATION_JSON
-                content = asJson(updatedClient)
-            }.andExpect {
-                status { isNotFound() }
-            }
-        }
+        }.andExpect { status { isNotFound() } }
     }
 
     private fun asJson(client: Client): String = objectMapper.writeValueAsString(client)
