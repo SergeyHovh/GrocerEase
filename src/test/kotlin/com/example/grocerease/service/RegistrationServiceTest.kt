@@ -1,5 +1,6 @@
 package com.example.grocerease.service
 
+import com.example.grocerease.exceptions.ClientAlreadyExistsException
 import com.example.grocerease.exceptions.ClientNotFoundException
 import com.example.grocerease.model.Client
 import com.example.grocerease.repository.ClientRepository
@@ -36,12 +37,26 @@ class RegistrationServiceTest {
 
         // Mock the behavior of clientRepository.save
         every { clientRepository.save(client) } returns client
+        every { clientRepository.findById(client.id) } returns Optional.empty()
 
         // Call the saveClient method
         registrationService.saveClient(client)
 
         // Verify that clientRepository.save was called once with the provided client
         verify(exactly = 1) { clientRepository.save(client) }
+    }
+
+    @Test
+    fun testSaveClientAlreadyExists() {
+        // Create a sample client
+        val client = Client(id = 1L, username = "John Doe", dateOfBirth = LocalDate.now())
+
+        // Mock the behavior of clientRepository.save
+        every { clientRepository.save(client) } returns client
+        every { clientRepository.findById(client.id) } returns Optional.of(client)
+
+        // Call the saveClient method
+        assertThrows<ClientAlreadyExistsException> { registrationService.saveClient(client) }
     }
 
     @Test
