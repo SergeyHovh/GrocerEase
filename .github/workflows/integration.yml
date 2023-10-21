@@ -35,7 +35,22 @@ jobs:
         ports:
           - 5432:5432
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Determine changed files
+        id: file-check
+        run: |
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          echo "Changed files: $CHANGED_FILES"
+          echo "::set-output name=changed_files::$CHANGED_FILES"
+      - name: Frontend Tests
+        if: contains(steps.file-check.outputs.changed_files, 'frontend/')
+        run: |
+          echo "changed frontend"
+      - name: Backend Tests
+        if: contains(steps.file-check.outputs.changed_files, 'src/')
+        run: |
+          echo "changed backend"
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
