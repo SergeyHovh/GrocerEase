@@ -15,9 +15,9 @@ import org.junit.jupiter.api.assertThrows
 import java.time.LocalDate
 import java.util.*
 
-class RegistrationServiceTest {
+class ClientServiceTest {
 
-    private lateinit var registrationService: RegistrationService
+    private lateinit var clientService: ClientService
     private lateinit var clientRepository: ClientRepository
 
     @BeforeEach
@@ -27,7 +27,7 @@ class RegistrationServiceTest {
 
         // Create a mock instance of ClientRepository
         clientRepository = mockk<ClientRepository>()
-        registrationService = RegistrationService(clientRepository)
+        clientService = ClientService(clientRepository)
     }
 
     @Test
@@ -40,7 +40,7 @@ class RegistrationServiceTest {
         every { clientRepository.findById(client.id) } returns Optional.empty()
 
         // Call the saveClient method
-        registrationService.saveClient(client)
+        clientService.saveClient(client)
 
         // Verify that clientRepository.save was called once with the provided client
         verify(exactly = 1) { clientRepository.save(client) }
@@ -56,7 +56,7 @@ class RegistrationServiceTest {
         every { clientRepository.findById(client.id) } returns Optional.of(client)
 
         // Call the saveClient method
-        assertThrows<ClientAlreadyExistsException> { registrationService.saveClient(client) }
+        assertThrows<ClientAlreadyExistsException> { clientService.saveClient(client) }
     }
 
     @Test
@@ -69,7 +69,7 @@ class RegistrationServiceTest {
         every { clientRepository.findById(clientId) } returns Optional.of(client)
 
         // Call the getClientById method
-        val retrievedClient = registrationService.getClientById(clientId)
+        val retrievedClient = clientService.findClientById(clientId)
 
         // Verify that clientRepository.findById was called once with the provided ID
         verify(exactly = 1) { clientRepository.findById(clientId) }
@@ -89,7 +89,7 @@ class RegistrationServiceTest {
 
         // Use assertThrows to capture and assert the exception
         assertThrows<ClientNotFoundException> {
-            registrationService.getClientById(nonExistentClientId)
+            clientService.findClientById(nonExistentClientId)
         }
 
         // Verify that clientRepository.findById was called once with the provided ID
@@ -104,7 +104,7 @@ class RegistrationServiceTest {
         every { clientRepository.findById(clientId) } returns Optional.of(client)
         every { clientRepository.save(client) } returns client
 
-        val updatedClient = registrationService.updateClient(client)
+        val updatedClient = clientService.updateClient(client)
 
         verify(exactly = 1) {
             clientRepository.findById(clientId)
@@ -123,7 +123,7 @@ class RegistrationServiceTest {
         every { clientRepository.save(client) } returns client
 
         assertThrows<ClientNotFoundException> {
-            registrationService.updateClient(client)
+            clientService.updateClient(client)
         }
 
         verify(exactly = 1) {

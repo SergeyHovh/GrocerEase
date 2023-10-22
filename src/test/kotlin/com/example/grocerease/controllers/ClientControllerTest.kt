@@ -1,5 +1,6 @@
 package com.example.grocerease.controllers
 
+import com.example.grocerease.model.Basket
 import com.example.grocerease.model.Client
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Test
@@ -18,11 +19,11 @@ import java.time.LocalDate
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-class RegistrationControllerTest @Autowired constructor(
+class ClientControllerTest @Autowired constructor(
     private val mockMvc: MockMvc,
     private val objectMapper: ObjectMapper
 ) {
-    private val basePath: String = "/api/v1/registration"
+    private val basePath: String = "/api/v1/client"
 
     @Test
     @DirtiesContext
@@ -53,9 +54,17 @@ class RegistrationControllerTest @Autowired constructor(
     @Test
     fun testClientGetHappyPath() {
         val clientId = 1L
-        val mockClient = Client(clientId, "john_doe", LocalDate.of(1990, 5, 15))
+        val mockClient = Client(
+            clientId,
+            "john_doe",
+            LocalDate.of(1990, 5, 15),
+            mutableListOf(
+                Basket(1),
+                Basket(2)
+            )
+        )
 
-        mockMvc.get("$basePath/$clientId")
+        mockMvc.get("$basePath?id=$clientId")
             .andExpect {
                 status { isOk() }
                 content {
