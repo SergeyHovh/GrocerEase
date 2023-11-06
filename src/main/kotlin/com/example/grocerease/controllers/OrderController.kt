@@ -22,15 +22,15 @@ class OrderController(
     fun createOrder(
         @RequestParam(name = "clientId") clientId: Long,
         @RequestParam(name = "basketId") basketId: Long
-    ): ResponseEntity<Pair<Client, Basket>> =
+    ): ResponseEntity<Client> =
         ResponseEntity.status(HttpStatus.CREATED).body(orderService.addBasketToClient(clientId, basketId))
 
-//    @PostMapping("/add-product")
-//    fun addProduct(
-//        @RequestParam(name = "productId") productId: Long,
-//        @RequestParam(name = "basketId") basketId: Long,
-//    ) {
-//        orderService.addProductToBasket(productId, basketId)
-//    }
+    @PostMapping("/add-product")
+    fun addProduct(
+        @RequestParam(name = "productId") productId: Long,
+        @RequestParam(name = "basketId") basketId: Long,
+        @RequestParam(name = "amount") amount: Double,
+    ): ResponseEntity<Basket> =
+        ResponseEntity.status(HttpStatus.CREATED).body(orderService.addProductToBasket(productId, basketId, amount))
 
 }
