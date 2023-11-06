@@ -1,5 +1,7 @@
 *{margin: 0;padding: 0;box-sizing: border-box;}
-
+img{
+    width: 100%;
+}
 .headers{
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
@@ -34,4 +36,40 @@ ol{
     margin: 25px;
     color: grey;
     font-size: 18px;
+}
+.links{
+    display: flex;
+    justify-content: center;
+}
+.links a{
+    text-decoration: none;
+    color: black;
+    font-size: 20;
+    margin: 35px;
+    padding: 3px;
+    border: 1px solid black;
+    border-radius: 2px;
+    transition: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+.links a:hover{
+    background-color: black;
+    color: white;
+}
+.image-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.groceries{
+    width: 400px;
+}
+p{
+    width: 400px;
+    margin-left: 20px;
+    font-size: 20px;
+    border: 3px solid black;
+    border-radius: 5px;
+    padding: 3px;
+    
 }
