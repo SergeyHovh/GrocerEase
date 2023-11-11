@@ -13,13 +13,14 @@ data class BasketProduct(
     @ManyToOne(
         cascade = [CascadeType.ALL]
     )
-    @JoinColumn(name = "basket_id")
+    @JoinColumn(name = "basket_id", foreignKey = ForeignKey(name = "fk_basket_product_basket"))
     @JsonBackReference
     val basket: Basket,
 
     @ManyToOne(
         cascade = [CascadeType.ALL],
     )
+    @JoinColumn(name = "product_id", foreignKey = ForeignKey(name = "fk_basket_product_product"))
     val product: Product,
 
     @Column(name = "amount")

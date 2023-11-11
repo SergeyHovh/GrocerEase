@@ -13,7 +13,7 @@ data class Basket(
     var id: Long,
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id", foreignKey = ForeignKey(name = "fk_basket_client"))
     @JsonBackReference
     var client: Client? = null,
 
