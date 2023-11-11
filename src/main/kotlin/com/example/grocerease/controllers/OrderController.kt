@@ -33,4 +33,9 @@ class OrderController(
     ): ResponseEntity<Basket> =
         ResponseEntity.status(HttpStatus.CREATED).body(orderService.addProductToBasket(productId, basketId, amount))
 
+    @GetMapping("/get-price")
+    fun getPrice(
+        @RequestParam(name = "basketId") basketId: Long
+    ): ResponseEntity<Double> =
+        ResponseEntity.ok().body(orderService.getBasketPrice(basketId))
 }

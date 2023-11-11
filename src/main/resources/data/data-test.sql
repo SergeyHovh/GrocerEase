@@ -6,4 +6,9 @@ VALUES ('john_doe', '1990-05-15'),
 insert into baskets (client_id)
 values (1),
        (1),
-       (2)
+       (2);
+
+insert into products (price, product_name)
+values (1, 'bread'),
+       (1.5, 'milk'),
+       (2.5, 'eggs')

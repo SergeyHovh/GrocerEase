@@ -24,4 +24,6 @@ class OrderService(
         return basket
     }
 
+    fun getBasketPrice(basketId: Long): Double = basketService.findBasketById(basketId).calculateTotalPrice()
+
 }

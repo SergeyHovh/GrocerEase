@@ -35,6 +35,18 @@ data class Basket(
 
     fun removeProduct(product: Product) = products.removeIf { it.product == product }
 
+    fun removeProductAmount(product: Product, amount: Double) {
+        val basketProduct = products.firstOrNull { it.product == product } ?: return
+        basketProduct.amount -= amount
+        if (basketProduct.amount <= 0) {
+            removeProduct(product)
+        }
+    }
+
+    fun calculateTotalPrice(): Double = products.sumOf {
+        it.amount * it.product.price
+    }
+
     override fun toString(): String {
         return "Basket(id=$id, client=${client?.id})"
     }

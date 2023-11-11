@@ -19,9 +19,14 @@ class BasketController(
 
     @GetMapping
     fun getBasket(@RequestParam(name = "id") id: Long): ResponseEntity<Basket> =
-        ResponseEntity.status(HttpStatus.OK).body(basketService.findBasketById(id))
+        ResponseEntity.ok().body(basketService.findBasketById(id))
 
     @PostMapping("/create")
     fun createBasket(@RequestBody basket: Basket) =
         ResponseEntity.status(HttpStatus.CREATED).body(basketService.saveBasket(basket))
+
+    // update basket
+    @PatchMapping
+    fun updateBasket(@RequestBody updatedBasket: Basket) =
+        ResponseEntity.accepted().body(basketService.updateBasket(updatedBasket))
 }

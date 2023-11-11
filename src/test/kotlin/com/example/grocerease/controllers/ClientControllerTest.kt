@@ -1,5 +1,6 @@
 package com.example.grocerease.controllers
 
+import com.example.grocerease.GrocerEaseApplication
 import com.example.grocerease.model.Basket
 import com.example.grocerease.model.Client
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -16,7 +17,7 @@ import org.springframework.test.web.servlet.patch
 import org.springframework.test.web.servlet.post
 import java.time.LocalDate
 
-@SpringBootTest
+@SpringBootTest(classes = [GrocerEaseApplication::class])
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 class ClientControllerTest @Autowired constructor(
@@ -64,7 +65,9 @@ class ClientControllerTest @Autowired constructor(
             )
         )
 
-        mockMvc.get("$basePath?id=$clientId")
+        mockMvc.get(basePath) {
+            param("id", clientId.toString())
+        }
             .andExpect {
                 status { isOk() }
                 content {

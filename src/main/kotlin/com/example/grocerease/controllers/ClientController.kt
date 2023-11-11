@@ -23,9 +23,9 @@ class ClientController(
 
     @GetMapping
     fun findClient(@RequestParam(name = "id") id: Long) =
-        ResponseEntity.status(HttpStatus.OK).body(clientService.findClientById(id))
+        ResponseEntity.ok().body(clientService.findClientById(id))
 
     @PatchMapping
     fun updateClient(@RequestBody updatedClient: Client) =
-        ResponseEntity.status(HttpStatus.ACCEPTED).body(clientService.updateClient(updatedClient))
+        ResponseEntity.accepted().body(clientService.updateClient(updatedClient))
 }
