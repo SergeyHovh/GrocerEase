@@ -1,0 +1,17 @@
+*{margin: 0;padding: 0;box-sizing: border-box;}
+img{
+    width: 100%;
+}
+header{
+    background-color: lightgrey;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo{
+    padding-left: 25px;
+    font-size: 36px;
+    color: rgb(0, 201, 0);
+    font-weight: 700;
+}
