@@ -48,4 +48,6 @@ class ClientService(
         client.removeBasket(basketToRemove)
         clientRepository.save(client)
     }
+
+    fun findAllClients(): List<Client> = clientRepository.findAll()
 }

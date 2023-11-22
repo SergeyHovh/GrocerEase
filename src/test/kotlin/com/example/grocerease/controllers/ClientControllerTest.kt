@@ -24,13 +24,13 @@ class ClientControllerTest @Autowired constructor(
     private val mockMvc: MockMvc,
     private val objectMapper: ObjectMapper
 ) {
-    private val basePath: String = "/api/v1/client"
+    private val basePath: String = "/api/v1/clients"
 
     @Test
     @DirtiesContext
     fun testClientCreation() {
         val mockClient = Client(3, "abcde", LocalDate.now())
-        mockMvc.post("$basePath/create") {
+        mockMvc.post(basePath) {
             contentType = MediaType.APPLICATION_JSON
             content = asJson(mockClient)
         }.andExpect {
@@ -46,7 +46,7 @@ class ClientControllerTest @Autowired constructor(
     @DirtiesContext
     fun testClientCreationExistingId() {
         val mockClient = Client(1L, "abcde", LocalDate.now())
-        mockMvc.post("$basePath/create") {
+        mockMvc.post(basePath) {
             contentType = MediaType.APPLICATION_JSON
             content = asJson(mockClient)
         }.andExpect { status { isConflict() } }
@@ -65,9 +65,7 @@ class ClientControllerTest @Autowired constructor(
             )
         )
 
-        mockMvc.get(basePath) {
-            param("id", clientId.toString())
-        }
+        mockMvc.get("$basePath/$clientId")
             .andExpect {
                 status { isOk() }
                 content {

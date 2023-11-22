@@ -20,12 +20,12 @@ class BasketControllerTest @Autowired constructor(
     private val mockMvc: MockMvc,
     private val objectMapper: ObjectMapper
 ) {
-    private val basePath: String = "/api/v1/basket"
+    private val basePath: String = "/api/v1/baskets"
 
     @Test
     fun testBasketCreationAlreadyExists() {
         val mockBasket = Basket(id = 1)
-        mockMvc.post("$basePath/create") {
+        mockMvc.post(basePath) {
             contentType = MediaType.APPLICATION_JSON
             content = asJson(mockBasket)
         }.andExpect {
@@ -37,7 +37,7 @@ class BasketControllerTest @Autowired constructor(
     @DirtiesContext
     fun testBasketCreationPasses() {
         val mockBasket = Basket(id = 3)
-        mockMvc.post("$basePath/create") {
+        mockMvc.post(basePath) {
             contentType = MediaType.APPLICATION_JSON
             content = asJson(mockBasket)
         }.andExpect {
@@ -49,7 +49,7 @@ class BasketControllerTest @Autowired constructor(
     fun testBasketGetHappyPath() {
         val basketId = 1L
 
-        mockMvc.get("$basePath?id=$basketId")
+        mockMvc.get("$basePath/$basketId")
             .andExpect {
                 status { isOk() }
                 content {
@@ -62,7 +62,7 @@ class BasketControllerTest @Autowired constructor(
     fun testBasketGetNotFoundPath() {
         val notFoundBasketId = 100L
 
-        mockMvc.get("$basePath?id=$notFoundBasketId")
+        mockMvc.get("$basePath/$notFoundBasketId")
             .andExpect {
                 status { isNotFound() }
             }
