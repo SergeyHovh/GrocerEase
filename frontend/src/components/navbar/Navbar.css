@@ -1,0 +1,51 @@
+/* navbar css */
+.navbar {
+    background-color: #fff;
+    border-bottom: 1px solid #e6e6e6;
+    border-radius: 0;
+    margin-bottom: 0;
+    min-height: 50px;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    z-index: 1000;
+    /* make it a flex container */
+    display: flex;
+    /* align items vertically */
+    align-items: center;
+    /* justify content horizontally */
+    justify-content: space-between;
+}
+
+/* make navbar elements look like buttons with red background and blue outlines*/
+.navbar-element {
+    background-color: #dc3545;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    color: #007bff;
+    font-size: 16px;
+    margin: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    /* make them inline-block elements */
+    display: inline-block;
+}
+
+.navbar-button {
+    background-color: #dc3545;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    color: #007bff;
+    font-size: 16px;
+    margin: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    /* make them inline-block elements */
+    display: inline-block;
+
+}
+
+.navbar-link {
+    color: white;
+    text-decoration: none;
+}

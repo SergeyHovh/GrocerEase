@@ -1,0 +1,67 @@
+/* main block, make it card like with padding and margin */
+.client-block {
+    background-color: #fff;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 0 10px #007bff;
+    /* inline elements */
+    display: inline-block;
+}
+
+/* block header, make it bold and bigger */
+/* make each element be the same size no matter the content */
+.client-block-element {
+    /* add background color */
+    background-color: #007bff;
+    /* add padding */
+    padding: 5px;
+    /* add margin */
+    margin: 5px;
+    /* add border radius */
+    border-radius: 5px;
+    /* add text color */
+    color: #fff;
+    /* add font weight */
+    font-weight: bold;
+    font-size: 1.2em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.basket-block-element {
+    /* add background color */
+    background-color: teal;
+    /* add padding */
+    padding: 5px;
+    /* add margin */
+    margin: 5px;
+    /* add border radius */
+    border-radius: 5px;
+    /* add text color */
+    color: #fff;
+    /* add font weight */
+    font-weight: bold;
+    font-size: 1.2em;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* inline elements */
+.product-block-element {
+    /* add background color */
+    background-color: coral;
+    /* add padding */
+    padding: 5px;
+    /* add margin */
+    margin: 5px;
+    /* add border radius */
+    border-radius: 5px;
+    /* add text color */
+    color: #fff;
+    /* add font weight */
+    font-weight: bold;
+    font-size: 1.2em;
+    display: inline-block;
+}
