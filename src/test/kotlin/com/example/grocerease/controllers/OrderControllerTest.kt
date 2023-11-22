@@ -20,7 +20,7 @@ class OrderControllerTest @Autowired constructor(
     private val objectMapper: ObjectMapper
 ) {
 
-    private val basePath: String = "/api/v1/order"
+    private val basePath: String = "/api/v1/orders"
 
     // test creating an order by passing in a client id and a basket id
     @Test

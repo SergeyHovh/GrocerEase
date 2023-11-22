@@ -8,7 +8,8 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/v1/basket")
+@RequestMapping("/api/v1/baskets")
+@CrossOrigin
 class BasketController(
     private val basketService: BasketService
 ) {
@@ -17,15 +18,14 @@ class BasketController(
     fun clientNotFound(exception: ResponseException) =
         ResponseEntity.status(exception.httpStatus).body(exception.localizedMessage)
 
-    @GetMapping
-    fun getBasket(@RequestParam(name = "id") id: Long): ResponseEntity<Basket> =
+    @GetMapping("/{id}")
+    fun getBasket(@PathVariable(name = "id") id: Long): ResponseEntity<Basket> =
         ResponseEntity.ok().body(basketService.findBasketById(id))
 
-    @PostMapping("/create")
+    @PostMapping
     fun createBasket(@RequestBody basket: Basket) =
         ResponseEntity.status(HttpStatus.CREATED).body(basketService.saveBasket(basket))
 
-    // update basket
     @PatchMapping
     fun updateBasket(@RequestBody updatedBasket: Basket) =
         ResponseEntity.accepted().body(basketService.updateBasket(updatedBasket))
